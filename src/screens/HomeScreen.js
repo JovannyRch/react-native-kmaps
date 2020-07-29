@@ -9,6 +9,7 @@ export default function HomeScreen({ navigation }) {
     const [typing, setTyping] = useState(false)
     const onSetNumberVariables = (newValue) => {
         setNumberVariables(newValue);
+        onContinuar();
     }
 
     const onContinuar = () => {
@@ -16,10 +17,10 @@ export default function HomeScreen({ navigation }) {
         if (numberVariables <= 12) {
             if (numberVariables < 7) {
                 //Pantalla con cuadros
-                navigation.navigate('Grid');
+                navigation.push('Grid', { vars: numberVariables });
             } else {
                 //Pantalla con las tablas de verdad
-                navigation.navigate('Table');
+                navigation.push('Table', { vars: numberVariables });
             }
         } else {
             Snackbar.show({
@@ -42,17 +43,17 @@ export default function HomeScreen({ navigation }) {
     }
 
 
-    const variables = [1, 2, 3, 4, 5, 6];
+    const variables = [2, 3, 4, 5, 6];
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Elige la cantidad de variables ({numberVariables})</Text>
+            <Text style={styles.title}>Elige la cantidad de variables</Text>
             {
                 variables.map((n) => {
                     return <ButtonVar key={n} text={n} onPress={() => onSetNumberVariables(n)} />
                 })
             }
-            <Text>O escribe la cantidad</Text>
+            <Text>O escribe la cantidad de variables</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={text => onTyping(text)}
