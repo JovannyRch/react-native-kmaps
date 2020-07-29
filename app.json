@@ -1,0 +1,12 @@
+{
+  "name": "kmaps",
+  "displayName": "kmaps",
+  "expo": {
+    "name": "kmaps",
+    "slug": "kmaps",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
