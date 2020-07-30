@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     button: {
-        backgroundColor: "#3880ff",
+        backgroundColor: "#2f4858",
         borderRadius: 100,
         width: 150,
-        height: 70,
+        height: 60,
         justifyContent: 'center',
         padding: 10,
     },

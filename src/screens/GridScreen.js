@@ -48,7 +48,7 @@ export default function GridScreen({ route, navigation }) {
                 dc.push(i);
             }
         }
-        navigation.push('Result', { mins, dc });
+        navigation.push('Result', { mins, dc, vars });
     }
 
     return (

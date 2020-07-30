@@ -1,26 +1,31 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
-import { Table, Row, Rows } from 'react-native-table-component';
 
 import { Kmap } from '../clases/Kmap';
 import { TablaVerdad } from '../clases/TruthTables';
+import TableComponent from '../components/TableComponent';
 
 
 const ResultScreen = ({ route }) => {
 
-    const { mins, dc } = route.params;
-    const calculator = new Kmap(mins, dc, "ABCDEFGHIJKLMNOPQRSTUVWXY");
+    const { mins, dc, vars } = route.params;
+    const nameVars = "ABCDEFGHIJKLMNOPQRSTUVWXY";
+    const calculator = new Kmap(mins, dc, nameVars);
     const result = calculator.suma;
-    const truthTable = new TablaVerdad(result);
-    console.log(truthTable.tabla);
-    console.log(truthTable.variables);
+    const nombresVariables = ["m"];
+    for (let i = 0; i < vars; i++) {
+        nombresVariables.push(nameVars[i]);
+    }
+    const truthTable = new TablaVerdad(result, vars, nombresVariables);
+
+
+
+    nombresVariables.push("y");
+
     return (
         <View>
-            <View style={styles.containerText}><Text style={styles.result}>{result}</Text></View>
-            <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
-                {/*  <Row data={tableHead} style={styles.head} textStyle={styles.text} /> */}
-                <Rows data={truthTable.tabla} textStyle={styles.text} />
-            </Table>
+            <View style={styles.containerText}><Text style={styles.result}>y = {result}</Text></View>
+            <TableComponent data={truthTable.tabla} header={nombresVariables} />
         </View>
     )
 }
@@ -28,7 +33,7 @@ const ResultScreen = ({ route }) => {
 const styles = StyleSheet.create({
     result: {
         fontSize: 30,
-        color: 'black',
+        color: '#002d7a',
         textAlign: 'center',
     },
     containerText: {
@@ -36,8 +41,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-    head: { height: 40, backgroundColor: '#f1f8ff' },
-    text: { margin: 6, textAlign: 'center', color: 'black' }
+
 })
 
 

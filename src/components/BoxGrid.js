@@ -9,15 +9,13 @@ const BoxGrid = ({ value, index, onPress, total }) => {
             return { ...styles.box, backgroundColor: '#5271FF' };
         }
         if (value == "X") {
-            return { ...styles.box, backgroundColor: '#ecff77' }
+            return { ...styles.box, backgroundColor: '#9ee493' }
         }
         return styles.box;
     }
 
     const getStyleText = (value) => {
-        if (value == "X") {
-            return { ...styles.valueText, color: "grey" };
-        }
+
         return styles.valueText;
     }
 

@@ -3,14 +3,16 @@
 export class TablaVerdad {
 
 
-    constructor(proposicion) {
+    constructor(proposicion, total, nombresVariables) {
         proposicion = proposicion.split(' ').join('');
         this.infija = proposicion;
         this.tabla = [];
-        this.variables = [];
+        this.variables = [...nombresVariables];
         this.postfix = "";
         this.operators = "'.+()'";
         this.opr2var = ".+";
+        this.total = total;
+
         this.toPostfix();
         this.calcularTabla();
 
@@ -70,15 +72,16 @@ export class TablaVerdad {
             }
         }
         this.variables = this.variables.sort();
-        let nCombinaciones = Math.pow(2, this.variables.length);
+
+        let nCombinaciones = Math.pow(2, parseInt(this.total));
 
         let cant0 = 0;
         let cant1 = 0;
         for (let i = 0; i < nCombinaciones; i++) {
-            let combinacion = this.nBits(i.toString(2), this.variables.length)
+            let combinacion = this.nBits(i.toString(2), this.total)
             let susChida = this.sustituir(combinacion, this.postfix);
             let resultado = this.evaluar(susChida);
-            this.tabla.push((combinacion + resultado).split(""));
+            this.tabla.push((i + combinacion + resultado).split(""));
         }
     }
 
