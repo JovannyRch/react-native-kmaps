@@ -11,6 +11,8 @@ export class TablaVerdad {
         this.postfix = "";
         this.operators = "'.+()'";
         this.opr2var = ".+";
+        this.isTautologia = false;
+        this.isContradiccion = false;
         this.total = total;
 
         this.toPostfix();
@@ -77,12 +79,21 @@ export class TablaVerdad {
 
         let cant0 = 0;
         let cant1 = 0;
+
         for (let i = 0; i < nCombinaciones; i++) {
             let combinacion = this.nBits(i.toString(2), this.total)
             let susChida = this.sustituir(combinacion, this.postfix);
             let resultado = this.evaluar(susChida);
-            this.tabla.push((i + combinacion + resultado).split(""));
+            if (resultado == 0) cant0++;
+            else if (resultado == 1) cant1++;
+            else {
+                resultado = "0";
+                cant0++;
+            }
+            this.tabla.push([i, combinacion, resultado]);
         }
+        if (cant1 == nCombinaciones) this.isTautologia = true;
+        else if (cant0 == nCombinaciones) this.isContradiccion = true;
     }
 
     sustituir(combinacion, postfija) {

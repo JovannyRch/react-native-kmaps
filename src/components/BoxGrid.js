@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 
-const BoxGrid = ({ value, index, onPress, total }) => {
+const BoxGrid = ({ values, index, onPress, total }) => {
 
     const getStyle = (value) => {
         if (value == 1) {
@@ -27,15 +27,25 @@ const BoxGrid = ({ value, index, onPress, total }) => {
         return bin;
     }
 
+    const getIndexStyle = () => {
+        let style = { ...styles.indexStyle };
+        if (total == 5) style = { ...style, fontSize: 10 };
+        if (values[index] == 1) style = { ...style, color: 'white' };
+
+        return style;
+    }
+
     return (
-        <View style={getStyle(value)}>
+        <View style={getStyle(values[index])}>
             <TouchableOpacity style={styles.touch} onPress={() => onPress(index)}>
                 <View style={styles.containerText} >
-                    <Text style={styles.indexText}>
-                        {parseBin(index)} - {index}
+                    <Text style={getIndexStyle()}>
+                        {
+                            total != 5 ? `${parseBin(index)} - ${index} ` : index
+                        }
                     </Text>
-                    <Text style={getStyleText(value)}>
-                        {value}
+                    <Text style={getStyleText(values[index])}>
+                        {values[index]}
                     </Text>
                 </View>
             </TouchableOpacity>
@@ -47,18 +57,17 @@ const BoxGrid = ({ value, index, onPress, total }) => {
 
 const styles = StyleSheet.create({
     valueText: {
-        fontSize: 60,
+        fontSize: 40,
         textAlign: 'center',
         color: 'white',
-
     },
     box: {
         flex: 1,
-        height: 180,
+        height: 100,
         borderWidth: 0.5,
         borderColor: 'black',
         justifyContent: 'center',
-        margin: 5,
+        margin: 3,
         backgroundColor: '#C7D0D8',
         borderRadius: 10,
     },
