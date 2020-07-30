@@ -30,6 +30,7 @@ export class Kmap {
         // console.log("F=", this.f);
         //console.log("Variables 2", this.variables2);
         //console.log(this.f);
+        this.groups = [];
         if (this.f.length >= 1) {
 
             this.reduce();
@@ -187,7 +188,8 @@ export class Kmap {
                 else row.push(0);
             }
             r.bin = this.buildExpression(r.bin)
-            //console.log(row, r);
+
+            this.groups.push(r.m);
             this.finalTable.push(row);
         }
 
@@ -253,7 +255,7 @@ export class Kmap {
         }
 
         this.clearColumns();
-        //console.log(this.ans);
+        console.log(this.ans);
         this.suma = this.buildSuma(this.ans);
         this.multiplicacion = this.buildMultiplicacion(this.ans);
 
@@ -272,7 +274,6 @@ export class Kmap {
     buildSuma(functions) {
         let aux = [];
         for (let f of functions) {
-            console.log("f", f);
             if (f.length > 1) {
                 aux.push(`${f.join(this.andOperator)}`)
             }
@@ -286,10 +287,10 @@ export class Kmap {
     }
 
     buildMultiplicacion(functions) {
-        console.log(functions);
+
         let aux = [];
         for (let f of functions) {
-            console.log("f", f);
+
             if (f.length > 1) {
                 aux.push(`(${f.join(this.orOperator)})`)
             }
@@ -340,7 +341,7 @@ export class Kmap {
                 this.varsUsed.push(this.variables[i]);
             }
             if (bin[i] == "1") res.push(this.variables[i]);
-            else if (bin[i] == "0") res.push(this.notOperator + this.variables[i]);
+            else if (bin[i] == "0") res.push(this.variables[i] + this.notOperator);
         }
         return res;
     }
