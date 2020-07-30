@@ -18,7 +18,7 @@ export class Kmap {
     orOperator = "";
     variables2 = [];
 
-    constructor(mins, dontcares, variables, or = "+", and = "", not = "'") {
+    constructor(mins, dontcares, variables, or = "+", and = ".", not = "'") {
         this.f = mins;
         this.f.sort();
         this.d = dontcares;
@@ -274,7 +274,7 @@ export class Kmap {
         for (let f of functions) {
             console.log("f", f);
             if (f.length > 1) {
-                aux.push(`(${f.join(this.andOperator)})`)
+                aux.push(`${f.join(this.andOperator)}`)
             }
             else {
 

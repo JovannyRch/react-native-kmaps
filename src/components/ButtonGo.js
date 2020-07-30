@@ -17,13 +17,16 @@ const ButtonGo = ({ onPress }) => {
 const styles = StyleSheet.create({
     text: {
         color: 'white',
-        fontSize: 20,
+        fontSize: 25,
         textAlign: 'center',
+        fontWeight: 'bold',
     },
     button: {
         backgroundColor: "#3880ff",
-        borderRadius: 10,
+        borderRadius: 100,
         width: 150,
+        height: 70,
+        justifyContent: 'center',
         padding: 10,
     },
     container: {
