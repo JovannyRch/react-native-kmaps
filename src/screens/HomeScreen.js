@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Snackbar from 'react-native-snackbar';
 import ButtonVar from '../components/ButtonVar';
+import TextTitle from '../components/TextTitle';
 
 export default function HomeScreen({ navigation }) {
     const [numberVariables, setNumberVariables] = useState(1);
@@ -47,13 +48,16 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
+
+            <TextTitle />
             <Text style={styles.title}>Elige la cantidad de variables</Text>
+
             {
                 variables.map((n) => {
                     return <ButtonVar key={n} text={n} onPress={() => onSetNumberVariables(n)} />
                 })
             }
-            <Text>O escribe la cantidad de variables</Text>
+            {/*  <Text>O escribe la cantidad de variables</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={text => onTyping(text)}
@@ -62,11 +66,11 @@ export default function HomeScreen({ navigation }) {
                 value={numberVariables.toString()}
             />
             {
-                typing && <View style={styles.button} >
+                typing && numberVariables > 6 && <View style={styles.button} >
                     <Button title="Continuar" onPress={onContinuar} />
                 </View>
             }
-
+ */}
         </View>
     );
 }
