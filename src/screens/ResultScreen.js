@@ -5,10 +5,9 @@ import { Kmap } from '../clases/Kmap';
 import { TablaVerdad } from '../clases/TruthTables';
 import TableComponent from '../components/TableComponent';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Table, Row, Rows } from 'react-native-table-component';
 
-import HTML from 'react-native-render-html';
 import { GroupsComponent } from '../components/GroupsComponent';
+import { CircuitComponent } from '../components/CircuitComponent';
 
 const htmlContent = `
     <h2>Oval CSS</h2>
@@ -37,8 +36,6 @@ const ResultScreen = ({ route }) => {
     else if (truthTable.isContradiccion) {
         result = "0";
     }
-    console.log(calculator.groups);
-
 
 
     return (
@@ -46,9 +43,7 @@ const ResultScreen = ({ route }) => {
             <View style={styles.containerText}><Text style={styles.result}>y = {result}</Text></View>
             <TableComponent data={truthTable.tabla} header={nombresVariables} />
             <GroupsComponent data={calculator.groups.map(row => [row.toString()])} />
-            <View className={styles.circuitContainer}>
-                <HTML html={htmlContent} />
-            </View>
+            <CircuitComponent variables={nameVars.substr(0, vars)} initGroups={result} />
         </ScrollView>
     )
 }

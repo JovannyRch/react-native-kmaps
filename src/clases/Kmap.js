@@ -22,7 +22,9 @@ export class Kmap {
         this.f = mins;
         this.f.sort();
         this.d = dontcares;
+
         this.d.sort();
+
         this.notOperator = not;
         this.orOperator = or;
         this.andOperator = and;
@@ -57,7 +59,7 @@ export class Kmap {
         for (let i = 0; i <= l + 1; i++) map[i] = [];
 
         let ones = 0;
-        let union = [...this.f];
+        let union = [...this.f, ...this.d];
         for (let n of union) {
             let bin = this.formatBin(n.toString(2), l);
             let row = this.Row(n, bin);
@@ -255,7 +257,7 @@ export class Kmap {
         }
 
         this.clearColumns();
-        console.log(this.ans);
+        //console.log(this.ans);
         this.suma = this.buildSuma(this.ans);
         this.multiplicacion = this.buildMultiplicacion(this.ans);
 
