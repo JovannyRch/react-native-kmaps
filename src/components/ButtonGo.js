@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import ButtonVar from './ButtonVar';
 
 const ButtonGo = ({ onPress }) => {
 
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.button} onPress={onPress}>
-                <Text style={styles.text}>Reducir</Text>
-            </TouchableOpacity>
+            <ButtonVar text={"Suma de productos"} onPress={onPress} />
+            <ButtonVar text={"Producto de sumas"} onPress={onPress} />
+
         </View>
     );
 }
@@ -17,23 +18,28 @@ const ButtonGo = ({ onPress }) => {
 const styles = StyleSheet.create({
     text: {
         color: 'white',
-        fontSize: 25,
+        fontSize: 20,
         textAlign: 'center',
         fontWeight: 'bold',
     },
     button: {
         backgroundColor: "#2f4858",
         borderRadius: 100,
-        width: 150,
-        height: 60,
+        width: Dimensions.get("window").width * 0.5,
+        height: 50,
         justifyContent: 'center',
-        padding: 10,
+        padding: 5,
+        marginBottom: 13,
     },
     container: {
         marginTop: 20,
         display: 'flex',
-        flexDirection: 'row',
+        flexDirection: 'column',
         justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+        left: Dimensions.get("window").width * 0.25,
     }
 })
 

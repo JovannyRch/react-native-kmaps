@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, View, Button, Dimensions } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const ButtonVar = ({ text, onPress }) => {
@@ -13,7 +13,7 @@ const ButtonVar = ({ text, onPress }) => {
 export default ButtonVar;
 const styles = StyleSheet.create({
     button: {
-        width: 180,
+        width: Dimensions.get("window").width * 0.6,
         fontSize: 20,
         marginBottom: 15,
         borderRadius: 20,

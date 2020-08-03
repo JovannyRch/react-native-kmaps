@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import HTML from 'react-native-render-html';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export const CircuitComponent = ({ variables, initGroups }) => {
+export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) => {
     const addNegations = (vars) => {
         let result = [];
         for (let v of vars) {
@@ -17,17 +17,18 @@ export const CircuitComponent = ({ variables, initGroups }) => {
     let vars = addNegations(variables);
     const n = vars.length;
     let height = n * 15;
-    let groups = initGroups.split("+");
+    let groups = initGroups.split('(').join("").split(")").join("");
+    let separator = isMaxiterm ? "." : "+";
+    let joiner = isMaxiterm ? "+" : ".";
+    groups = groups.split(separator);
     let dy = 0;
-    let middle = (height) * n / 2;
-    let initOr = 0;
     const step = 17;
     const stepy = 15;
     let decresingX = true;
     let lg = groups.length;
     let middles = lg % 2 == 0 ? [(lg / 2) - 1, (lg / 2)] : [Math.floor(lg / 2)];
     let incresingValue = (n / 3) * (step * 0.5);
-    let initOrDx = incresingValue + 20;
+
     //Almacena las posiciones de las salidas de los ands, para unirlos con el OR
     let mapsXY = {};
     let color = "#2f4858";
@@ -35,7 +36,7 @@ export const CircuitComponent = ({ variables, initGroups }) => {
     const setVariables = (vars, group, index) => {
 
 
-        let formatGroup = group.split(' ').join('').split(".");
+        let formatGroup = group.split(' ').join('').split(joiner);
 
 
         let dx = 10;
@@ -58,6 +59,29 @@ export const CircuitComponent = ({ variables, initGroups }) => {
                             <div style="position: absolute;top: ${dy + stepy + ((height / n) * i) + 7}px;left:${dx - 2}px;width: 10px; height: ${10}px; background-color: ${color};border-radius: 100px;"></div>
                             <div style="position: absolute;top: ${dy + stepy + ((height / n) * i) + 10}px;left:${dx}px;width: ${initAnd - dx}px; height: ${3}px; background-color: ${color};"></div>
                     `;
+
+                if (formatGroup.length == 1) {
+
+                    let y1 = (((height / n) * i) + 13);
+                    let y2 = (((height / 2)));
+                    let h;
+                    if (y1 > y2) {
+                        h = y1 - y2;
+
+                        result +=
+                            `
+                                <div style="position: absolute;top: ${dy + stepy + ((height / 2))}px;left:${initAnd}px;width: ${3}px; height: ${h}px; background-color: ${color};z-index: 3;"></div>
+                            `
+                    } else {
+                        h = (((height / 2))) - (((height / n) * i) + 10);
+                        result +=
+                            `
+                                <div style="position: absolute;top: ${dy + stepy + ((height / n) * i) + 10}px;left:${initAnd}px;width: ${3}px; height: ${h}px; background-color: ${color};z-index: 3;"></div>
+                            `
+                    }
+                    result += `<div style="position: absolute;top: ${dy + stepy + ((height / 2))}px;left:${initAnd}px;width: ${height * 1.4}px; height: ${3}px; background-color: ${color};z-index: 3;"></div>`
+
+                }
             }
 
 
@@ -65,7 +89,17 @@ export const CircuitComponent = ({ variables, initGroups }) => {
         }
         //AND OPERATOR
         if (formatGroup.length > 1) {
-            result += `<div style="position: absolute;top: ${dy + stepy}px;left:${initAnd}px;width: ${height}px; height: ${height}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>`
+            if (!isMaxiterm) {
+                result += `<div style="position: absolute;top: ${dy + stepy}px;left:${initAnd}px;width: ${height}px; height: ${height}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>`
+            }
+            else {
+                result +=
+                    `
+                <div style="position: absolute;top: ${(dy + stepy)}px;left:${initAnd - (height)}px;width: ${height * 1.05}px; height: ${height * 1.2}px; background-color: #f0f2f2;border-radius: 40%;z-index: -1;"></div>                 
+                <div style="position: absolute;top: ${(dy + stepy)}px;left:${initAnd - (height / 2)}px;width: ${height}px; height: ${height * 1.2}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -2;"></div>                  
+                <div style="position: absolute;top: ${(dy + stepy) + (height / 2)}px;left:${initAnd + (height / 2)}px;width: ${height * 0.5}px; height: ${3}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -2;"></div>                  
+            `;
+            }
         }
 
         //Salida del operador AND
@@ -74,17 +108,18 @@ export const CircuitComponent = ({ variables, initGroups }) => {
               <div style="position: absolute;top: ${(dy + stepy) + (height / 2)}px;left:${initAnd + height}px;width: ${incresingValue}px; height: 3px; background-color: ${color};"></div>
               `;
         mapsXY[index] = { x: initAnd + height + incresingValue, y: (dy + stepy) + (height / 2) };
-        if (middles.indexOf(index) >= 0) {
+        if (middles.indexOf(index) == 0) {
             decresingX = false;
         }
-        else if (decresingX) {
-            incresingValue -= step;
-        }
-        else {
-            incresingValue += step;
+        if (middles.indexOf(index) != 1) {
+            if (decresingX) {
+                incresingValue -= step;
+            }
+            else {
+                incresingValue += step;
+            }
         }
 
-        initOr = initAnd + height * 0.6;
         result += ` `;
         dy += height + 40;
         return result;
@@ -140,12 +175,22 @@ export const CircuitComponent = ({ variables, initGroups }) => {
         yOr = y1 + (y2 - y1) / 2;
     }
     //Dibujo del operador OR
-    htmlContent +=
-        `
+    if (groups.length > 1) {
+        if (!isMaxiterm) {
+            htmlContent +=
+                `
         <div style="position: absolute;top: ${yOr - (height / 2)}px;left:${posXOr - (height / 1)}px;width: ${height * 1.05}px; height: ${height}px; background-color: #f0f2f2;border-radius: 40%;z-index: 1;"></div>                 
         <div style="position: absolute;top: ${yOr - (height / 2)}px;left:${posXOr - (height / 2)}px;width: ${height}px; height: ${height}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -1;"></div>                  
         <div style="position: absolute;top: ${yOr}px;left:${posXOr + (height / 2)}px;width: ${height * 0.25}px; height: ${3}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -1;"></div>                  
     `;
+        } else {
+            htmlContent += `<div style="position: absolute;top: ${yOr - (height / 2)}px;left:${posXOr}px;width: ${height * 0.75}px; height: ${height}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>
+            <div style="position: absolute;top: ${yOr}px;left:${posXOr + (height / 2)}px;width: ${height * 0.4}px; height: ${3}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -1;"></div>                  
+ 
+            `
+
+        }
+    }
 
 
     htmlContent += `</div>`
@@ -154,7 +199,7 @@ export const CircuitComponent = ({ variables, initGroups }) => {
     return (
         <View className={styles.circuitContainer}>
             <View >
-                <Text styles={styles.text}>Circuito</Text>
+                <Text style={styles.text}>Circuito</Text>
             </View>
             <HTML html={htmlContent} />
         </View>
@@ -166,7 +211,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     text: {
-        fontSize: 17,
+        fontSize: 23,
         textAlign: 'center'
     }
 })

@@ -8,14 +8,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import { GroupsComponent } from '../components/GroupsComponent';
 import { CircuitComponent } from '../components/CircuitComponent';
+import QuineMcCluskey from '../clases/quinemccluskey';
 
-const htmlContent = `
-    <h2>Oval CSS</h2>
-    <div style="height: 50px;
-    width: 100px;
-    background-color: #555;
-    border-radius: 50%;"></div>
-`;
 
 
 
@@ -23,9 +17,11 @@ const ResultScreen = ({ route }) => {
 
     const { mins, dc, vars } = route.params;
     const nameVars = "ABCDEFGHIJKLMNOPQRSTUVWXY";
-    const calculator = new Kmap(mins, dc, nameVars);
-    let result = calculator.suma;
+
     const nombresVariables = ["m"];
+    let isMaxiterm = true;
+    let f = new QuineMcCluskey(nameVars.substr(0, vars), mins, dc);
+    let result = f.getFunctionFormat(isMaxiterm);
 
     nombresVariables.push(nameVars.substr(0, vars));
     nombresVariables.push("y");
@@ -42,8 +38,12 @@ const ResultScreen = ({ route }) => {
         <ScrollView>
             <View style={styles.containerText}><Text style={styles.result}>y = {result}</Text></View>
             <TableComponent data={truthTable.tabla} header={nombresVariables} />
-            <GroupsComponent data={calculator.groups.map(row => [row.toString()])} />
-            <CircuitComponent variables={nameVars.substr(0, vars)} initGroups={result} />
+            {/*  {
+                (!truthTable.isContradiccion) && <GroupsComponent data={calculator.groups.map(row => [row.toString()])} />
+            } */}
+            {
+                (!truthTable.isContradiccion && !truthTable.isTautologia) && <CircuitComponent variables={nameVars.substr(0, vars)} initGroups={result} isMaxiterm={isMaxiterm} />
+            }
         </ScrollView>
     )
 }

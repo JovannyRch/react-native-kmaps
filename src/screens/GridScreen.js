@@ -5,7 +5,7 @@ import ButtonGo from '../components/ButtonGo';
 
 export default function GridScreen({ route, navigation }) {
     const { vars, initialValues } = route.params;
-
+    console.log(vars, initialValues);
     const [values, setValues] = useState([...initialValues]);
     useEffect(() => {
         setValues(initialValues);
@@ -48,7 +48,7 @@ export default function GridScreen({ route, navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text>{vars}</Text>
+
             {vars == 2 && <View style={styles.grid} >
 
                 <View style={styles.row}>
@@ -217,6 +217,7 @@ const styles = StyleSheet.create({
     container: {
         display: 'flex',
         flexDirection: 'row',
+        flex: 1,
     },
     grid: {
         display: 'flex',

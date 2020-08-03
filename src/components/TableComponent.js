@@ -5,14 +5,14 @@ import { Table, Row, Rows } from 'react-native-table-component';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const TableComponent = ({ header, data }) => {
-    const [showTable, setShowTable] = useState(false)
+    const [showTable, setShowTable] = useState(true)
 
     return (
         <View >
             {
                 showTable ?
                     <View style={styles.containerTable}>
-                        <Text style={{ fontSize: 17, textAlign: 'center' }}>Tabla de Verdad</Text>
+                        <Text style={{ fontSize: 20, textAlign: 'center' }}>Tabla de Verdad</Text>
                         <View style={{ height: 10, }}></View>
                         <Table borderStyle={styles.table}>
                             <Row data={header} style={styles.head} textStyle={styles.headText} />

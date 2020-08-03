@@ -14,10 +14,25 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" options={{ headerShown: false }} component={HomeScreen} />
-        <Stack.Screen name="Grid" component={GridScreen} />
-        <Stack.Screen name="Table" component={TableScreen} />
-        <Stack.Screen name="Result" component={ResultScreen} />
+        <Stack.Screen
+          name="Home"
+          options={{ headerShown: false }}
+          component={HomeScreen} />
+        <Stack.Screen
+          name="Grid"
+          component={GridScreen}
+          options={{
+            title: '2 Variables',
+          }} />
+        <Stack.Screen
+          name="Table"
+          component={TableScreen} />
+        <Stack.Screen
+          name="Result"
+          options={{
+            title: 'Resultado',
+          }}
+          component={ResultScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
