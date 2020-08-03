@@ -12,7 +12,7 @@ const TableComponent = ({ header, data }) => {
             {
                 showTable ?
                     <View style={styles.containerTable}>
-                        <Text style={{ fontSize: 20, textAlign: 'center' }}>Tabla de Verdad</Text>
+                        <Text style={styles.textTitle}>Tabla de Verdad</Text>
                         <View style={{ height: 10, }}></View>
                         <Table borderStyle={styles.table}>
                             <Row data={header} style={styles.head} textStyle={styles.headText} />
@@ -31,6 +31,11 @@ const TableComponent = ({ header, data }) => {
 }
 
 const styles = StyleSheet.create({
+    textTitle: {
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: 10,
+    },
     headText: {
         color: 'white',
         textAlign: 'center',

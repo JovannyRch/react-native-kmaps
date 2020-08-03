@@ -418,7 +418,8 @@ module.exports = class QuineMcCluskey {
         this.groups = [];
         for (let i = 0; i < primeImplicants.length; i++) {
             let implicant = primeImplicants[i];
-            this.groups.push(implicant.getValues());
+            let g = implicant.getValues();
+            this.groups.push(g);
             // Add parentheses if necessary
             if ((implicant.getValue().match(/-/g) || []).length < this.variables.length - 1) {
                 result += "(";

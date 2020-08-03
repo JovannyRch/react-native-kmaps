@@ -47,7 +47,7 @@ export default function GridScreen({ route, navigation }) {
                 dc.push(i);
             }
         }
-        const params = { mins, dc, vars, isMaxiterm };
+        const params = { mins, dc, vars, isMaxiterm, values };
 
         navigation.push('Result', params);
     }

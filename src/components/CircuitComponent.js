@@ -16,13 +16,13 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
     }
     let vars = addNegations(variables);
     const n = vars.length;
-    let height = n * 15;
+    let height = n * 8;
     let groups = initGroups.split('(').join("").split(")").join("");
     let separator = isMaxiterm ? "." : "+";
     let joiner = isMaxiterm ? "+" : ".";
     groups = groups.split(separator);
     let dy = 0;
-    const step = 17;
+    const step = 13;
     const stepy = 15;
     let decresingX = true;
     let lg = groups.length;
@@ -92,15 +92,15 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
 
             if (!isMaxiterm) {
                 //OR Operator
-                result += `<div style="position: absolute;top: ${dy + stepy}px;left:${initAnd}px;width: ${height}px; height: ${height}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>`
+                result += `<div style="position: absolute;top: ${dy + stepy}px;left:${initAnd}px;width: ${height}px; height: ${height * 1.3}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>`
             }
             else {
                 //AND OPERATOR
                 result +=
                     `
-                <div style="position: absolute;top: ${(dy + stepy)}px;left:${initAnd - (height)}px;width: ${height * 1.05}px; height: ${height * 1.2}px; background-color: #f0f2f2;border-radius: 40%;z-index: -1;"></div>                 
-                <div style="position: absolute;top: ${(dy + stepy)}px;left:${initAnd - (height / 2)}px;width: ${height}px; height: ${height * 1.2}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -2;"></div>                  
-                <div style="position: absolute;top: ${(dy + stepy) + (height / 2)}px;left:${initAnd + (height / 2)}px;width: ${height * 0.5}px; height: ${3}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -2;"></div>                  
+                <div style="position: absolute;top: ${(dy + stepy)}px;left:${initAnd - (height)}px;width: ${height * 1.05}px; height: ${height * 1.3}px; background-color: #f0f2f2;border-radius: 40%;z-index: -1;"></div>                 
+                <div style="position: absolute;top: ${(dy + stepy)}px;left:${initAnd - (height / 2)}px;width: ${height * 1.1}px; height: ${height * 1.3}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -2;"></div>                  
+                <div style="position: absolute;top: ${(dy + stepy) + (height / 2)}px;left:${initAnd + (height / 2)}px;width: ${height * 0.6}px; height: ${3}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -2;"></div>                  
             `;
             }
         }
@@ -155,15 +155,15 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
         if (y > middleValueY) {
             //Hacia arriba 
             htmlContent += `
-            <div style="position: absolute; top: ${middleValueY + 10}px;left:${x};background-color: ${color}; width: 3px; height: ${y - middleValueY - 7}px;z-index: 3;" ></div>
-            <div style="position: absolute; top: ${middleValueY + 10}px;left:${x};background-color: ${color}; width: ${posXOr - x + (height * .05)}px; height: ${3}px;z-index: 3;" ></div>
+            <div style="position: absolute; top: ${middleValueY + 5}px;left:${x};background-color: ${color}; width: 3px; height: ${y - middleValueY - 2}px;z-index: 3;" ></div>
+            <div style="position: absolute; top: ${middleValueY + 5}px;left:${x};background-color: ${color}; width: ${posXOr - x + (height * .05)}px; height: ${3}px;z-index: 3;" ></div>
             `;
         }
         else if (y < middleValueY) {
             //Hacia abajo
             htmlContent += `
-            <div style="position: absolute; top: ${y}px;left:${x};background-color: ${color}; width: 3px; height: ${middleValueY - y - 9}px;z-index: 3;" ></div>
-            <div style="position: absolute; top: ${middleValueY - 9}px;left:${x};background-color: ${color}; width: ${posXOr - x + (height * .05)}px; height: 3px;z-index: 3;" ></div>
+            <div style="position: absolute; top: ${y}px;left:${x};background-color: ${color}; width: 3px; height: ${middleValueY - y - 5}px;z-index: 3;" ></div>
+            <div style="position: absolute; top: ${middleValueY - 5}px;left:${x};background-color: ${color}; width: ${posXOr - x + (height * .05)}px; height: 3px;z-index: 3;" ></div>
             `;
         }
         else {
@@ -194,7 +194,7 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
     `;
         } else {
             htmlContent += `<div style="position: absolute;top: ${yOr - (height / 2)}px;left:${posXOr}px;width: ${height * 0.75}px; height: ${height}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>
-            <div style="position: absolute;top: ${yOr}px;left:${posXOr + (height / 2)}px;width: ${height * 0.4}px; height: ${3}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -1;"></div>                  
+            <div style="position: absolute;top: ${yOr}px;left:${posXOr + (height / 2)}px;width: ${height * 0.5}px; height: ${3}px; background-color: ${color};border-top-right-radius: 100%;border-bottom-right-radius: 100%;z-index: -1;"></div>                  
  
             `
 
@@ -221,6 +221,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginBottom: 10,
     }
 })

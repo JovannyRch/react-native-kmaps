@@ -2,9 +2,10 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 
-const BoxGrid = ({ values, index, onPress, total }) => {
+const BoxGrid = ({ values, index, onPress, total, allLight = false }) => {
 
     const getStyle = (value) => {
+        if (allLight) return styles.box;
         if (value == 1) {
             return { ...styles.box, backgroundColor: '#5271FF' };
         }
@@ -36,7 +37,7 @@ const BoxGrid = ({ values, index, onPress, total }) => {
     }
 
     return (
-        <View style={getStyle(values[index])}>
+        <View style={{ ...getStyle(values[index]) }}>
             <TouchableOpacity style={styles.touch} onPress={() => onPress(index)}>
                 <View style={styles.containerText} >
                     <Text style={getIndexStyle()}>
@@ -49,7 +50,7 @@ const BoxGrid = ({ values, index, onPress, total }) => {
                     </Text>
                 </View>
             </TouchableOpacity>
-        </View>
+        </View >
 
     )
 }

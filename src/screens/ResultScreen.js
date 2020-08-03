@@ -15,18 +15,18 @@ import Swiper from 'react-native-swiper';
 
 const ResultScreen = ({ route }) => {
 
-    const { mins, dc, vars, isMaxiterm } = route.params;
+    const { mins, dc, vars, isMaxiterm, values } = route.params;
     const nameVars = "ABCDEFGHIJKLMNOPQRSTUVWXY";
 
     const nombresVariables = ["m"];
-
-    let f = new QuineMcCluskey(nameVars.substr(0, vars), mins, dc);
+    let varsUsed = nameVars.substr(0, vars);
+    let f = new QuineMcCluskey(varsUsed, mins, dc);
     let result = f.getFunctionFormat(isMaxiterm);
     let groups = f.groups;
     let title = !isMaxiterm ? "Suma de productos" : "Producto de sumas";
-    nombresVariables.push(nameVars.substr(0, vars));
+    nombresVariables.push(varsUsed);
     nombresVariables.push("y");
-    const truthTable = new TablaVerdad(result, vars, nameVars.substr(0, vars));
+    const truthTable = new TablaVerdad(result, vars, varsUsed);
 
     const head = <>
         <View style={styles.containerText}>
@@ -38,23 +38,24 @@ const ResultScreen = ({ route }) => {
     return (
 
         <Swiper style={{ ...styles.wrapper }} showsButtons={false}>
-            <View style={styles.slide1}>
-                {head}
-                {
-                    (!truthTable.isContradiccion && !truthTable.isTautologia) && <CircuitComponent variables={nameVars.substr(0, vars)} initGroups={result} isMaxiterm={isMaxiterm} />
-                }
-
-            </View>
+            {
+                (!truthTable.isContradiccion && !truthTable.isTautologia) &&
+                <View style={styles.slide3}>
+                    {head}
+                    <GroupsComponent data={groups} vars={varsUsed.length} values={values} />
+                </View>
+            }
+            {
+                (!truthTable.isContradiccion && !truthTable.isTautologia) && <View style={styles.slide1}>
+                    {head}
+                    <CircuitComponent variables={varsUsed} initGroups={result} isMaxiterm={isMaxiterm} />
+                </View>
+            }
             <View style={styles.slide2}>
                 {head}
                 <TableComponent data={truthTable.tabla} header={nombresVariables} />
             </View>
-            <View style={styles.slide3}>
-                {head}
-                {
-                    (!result == "0") && <GroupsComponent data={groups.map(row => [row.toString()])} />
-                }
-            </View>
+
         </Swiper>
     )
 }
@@ -68,7 +69,7 @@ const ResultScreen = ({ route }) => {
                 <Text style={styles.result}>y = {result}</Text>
             </View>
             {
-                (!truthTable.isContradiccion && !truthTable.isTautologia) && <CircuitComponent variables={nameVars.substr(0, vars)} initGroups={result} isMaxiterm={isMaxiterm} />
+                (!truthTable.isContradiccion && !truthTable.isTautologia) && <CircuitComponent variables={varsUsed} initGroups={result} isMaxiterm={isMaxiterm} />
             }
             <TableComponent data={truthTable.tabla} header={nombresVariables} />
             {

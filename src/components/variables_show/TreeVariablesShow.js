@@ -3,7 +3,7 @@ import { View, Text } from 'react-native'
 import BoxGrid from '../BoxGrid'
 import variablesStyles from './styles'
 
-export default function TreeVariables({ onPress, values, vars, groups = [], colors = [] }) {
+export default function TreeVariablesShow({ onPress, values, vars, groups = [], colors = [] }) {
 
     const getStyle = () => {
         if (groups.length) {
