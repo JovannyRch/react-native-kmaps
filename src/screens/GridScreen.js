@@ -4,15 +4,11 @@ import BoxGrid from '../components/BoxGrid';
 import ButtonGo from '../components/ButtonGo';
 
 export default function GridScreen({ route, navigation }) {
-    const { vars } = route.params;
+    const { vars, initialValues } = route.params;
 
-    const [values, setValues] = useState([]);
+    const [values, setValues] = useState([...initialValues]);
     useEffect(() => {
-        let values = [];
-        for (let i = 0; i < Math.pow(2, vars); i++) {
-            values.push("0");
-        }
-        setValues(values);
+        setValues(initialValues);
 
     }, [])
 
@@ -52,6 +48,7 @@ export default function GridScreen({ route, navigation }) {
 
     return (
         <View style={styles.container}>
+            <Text>{vars}</Text>
             {vars == 2 && <View style={styles.grid} >
 
                 <View style={styles.row}>

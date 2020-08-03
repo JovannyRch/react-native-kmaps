@@ -24,7 +24,8 @@ export const CircuitComponent = ({ variables, initGroups }) => {
     const step = 17;
     const stepy = 15;
     let decresingX = true;
-    let middles = (n / 2) % 2 == 0 ? [n / 4, (n / 4) - 1] : [Math.floor(n / 4)];
+    let lg = groups.length;
+    let middles = lg % 2 == 0 ? [(lg / 2) - 1, (lg / 2)] : [Math.floor(lg / 2)];
     let incresingValue = (n / 3) * (step * 0.5);
     let initOrDx = incresingValue + 20;
     //Almacena las posiciones de las salidas de los ands, para unirlos con el OR
@@ -35,6 +36,7 @@ export const CircuitComponent = ({ variables, initGroups }) => {
 
 
         let formatGroup = group.split(' ').join('').split(".");
+
 
         let dx = 10;
 
@@ -58,19 +60,24 @@ export const CircuitComponent = ({ variables, initGroups }) => {
                     `;
             }
 
+
             dx += step;
         }
+        //AND OPERATOR
+        if (formatGroup.length > 1) {
+            result += `<div style="position: absolute;top: ${dy + stepy}px;left:${initAnd}px;width: ${height}px; height: ${height}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>`
+        }
 
+        //Salida del operador AND
         result +=
             `
-              <div style="position: absolute;top: ${dy + stepy}px;left:${initAnd}px;width: ${height}px; height: ${height}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>
               <div style="position: absolute;top: ${(dy + stepy) + (height / 2)}px;left:${initAnd + height}px;width: ${incresingValue}px; height: 3px; background-color: ${color};"></div>
               `;
         mapsXY[index] = { x: initAnd + height + incresingValue, y: (dy + stepy) + (height / 2) };
         if (middles.indexOf(index) >= 0) {
             decresingX = false;
         }
-        if (decresingX) {
+        else if (decresingX) {
             incresingValue -= step;
         }
         else {
@@ -89,7 +96,10 @@ export const CircuitComponent = ({ variables, initGroups }) => {
         let g = groups[i];
         htmlContent += setVariables(vars, g, parseInt(i));
     }
-    let middleValueY = middles.length == 2 ? (mapsXY[middles[1]].y - mapsXY[middles[0]].y) / 2 : mapsXY[middles[0]].y;
+    //console.log(mapsXY);
+    //console.log(middles);
+    let middleValueY = middles.length == 2 ? ((mapsXY[middles[1]].y - mapsXY[middles[0]].y) / 2) + mapsXY[middles[0]].y : mapsXY[middles[0]].y;
+    //console.log(middleValueY);
     //htmlContent += `<div style="position: absolute; top: ${middleValueY}px;left:${initOr};background-color: ${color}; width: 100px; height: 3px;" ></div>`
 
     //Conectores de las salidas de la compuerta AND a la compuerta or
@@ -103,22 +113,20 @@ export const CircuitComponent = ({ variables, initGroups }) => {
             htmlContent += `
             <div style="position: absolute; top: ${middleValueY + 10}px;left:${x};background-color: ${color}; width: 3px; height: ${y - middleValueY - 7}px;z-index: 3;" ></div>
             <div style="position: absolute; top: ${middleValueY + 10}px;left:${x};background-color: ${color}; width: ${posXOr - x + (height * .05)}px; height: ${3}px;z-index: 3;" ></div>
-            `
-
+            `;
         }
         else if (y < middleValueY) {
             //Hacia abajo
             htmlContent += `
             <div style="position: absolute; top: ${y}px;left:${x};background-color: ${color}; width: 3px; height: ${middleValueY - y - 9}px;z-index: 3;" ></div>
             <div style="position: absolute; top: ${middleValueY - 9}px;left:${x};background-color: ${color}; width: ${posXOr - x + (height * .05)}px; height: 3px;z-index: 3;" ></div>
-            `
-
+            `;
         }
         else {
             //Ahi quedate
             htmlContent += `
             <div style="position: absolute; top: ${y}px;left:${x};background-color: ${color}; width: ${posXOr - x + (height * .05)}px; height: 3px;z-index: 3;" ></div>
-            `
+            `;
         }
     }
 

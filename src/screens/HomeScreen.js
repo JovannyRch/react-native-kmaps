@@ -8,20 +8,15 @@ import TextTitle from '../components/TextTitle';
 export default function HomeScreen({ navigation }) {
     const [numberVariables, setNumberVariables] = useState(1);
     const [typing, setTyping] = useState(false)
-    const onSetNumberVariables = (newValue) => {
-        setNumberVariables(newValue);
-        onContinuar();
-    }
+    const onSetNumberVariables = (numberVariables) => {
 
-    const onContinuar = () => {
-        //Pasar a otra pagina
         if (numberVariables <= 12) {
-            if (numberVariables < 7) {
+            if (numberVariables >= 2 && numberVariables < 7) {
                 //Pantalla con cuadros
-                navigation.push('Grid', { vars: numberVariables });
-            } else {
-                //Pantalla con las tablas de verdad
-                navigation.push('Table', { vars: numberVariables });
+                let values = [];
+                for (let i = 0; i < Math.pow(2, numberVariables); i++) values.push(0);
+                let params = { vars: numberVariables, initialValues: values };
+                navigation.push('Grid', params);
             }
         } else {
             Snackbar.show({
@@ -35,7 +30,9 @@ export default function HomeScreen({ navigation }) {
             });
             setNumberVariables(12);
         }
+
     }
+
 
     const onTyping = (newValue) => {
         setTyping(true);
