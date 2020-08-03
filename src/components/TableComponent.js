@@ -39,17 +39,17 @@ const styles = StyleSheet.create({
     },
     head: {
         height: 40,
-        backgroundColor: '#3880ff'
+        backgroundColor: '#2f4858'
     },
     text: {
         margin: 6,
         textAlign: 'center',
-        color: '#002d7a',
+        color: '#2f4858',
         fontSize: 20,
     },
     table: {
         borderWidth: 1,
-        borderColor: '#70a5ff',
+        borderColor: '#2f4858',
     },
     container: {
         borderRadius: 10,

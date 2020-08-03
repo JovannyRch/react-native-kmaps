@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import ButtonVar from './ButtonVar';
 
-const ButtonGo = ({ onPress }) => {
+const ButtonGo = ({ onPress1, onPress2 }) => {
 
 
     return (
         <View style={styles.container}>
-            <ButtonVar text={"Suma de productos"} onPress={onPress} />
-            <ButtonVar text={"Producto de sumas"} onPress={onPress} />
+            <ButtonVar text={"Suma de productos"} onPress={onPress1} />
+            <ButtonVar text={"Producto de sumas"} onPress={onPress2} />
 
         </View>
     );

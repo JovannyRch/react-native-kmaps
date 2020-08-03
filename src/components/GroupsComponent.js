@@ -16,21 +16,21 @@ export const GroupsComponent = ({ data }) => {
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: 23,
+        fontSize: 20,
         textAlign: 'center',
     },
     table: {
         borderWidth: 1,
-        borderColor: '#70a5ff',
+        borderColor: '#2f4858',
     },
     textTable: {
         margin: 6,
         textAlign: 'center',
-        color: '#002d7a',
+        color: '#2f4858',
         fontSize: 20,
     },
     table: {
         borderWidth: 1,
-        borderColor: '#70a5ff',
+        borderColor: '#2f4858',
     },
 })

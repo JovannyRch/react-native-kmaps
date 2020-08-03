@@ -19,10 +19,34 @@ export default function App() {
           options={{ headerShown: false }}
           component={HomeScreen} />
         <Stack.Screen
-          name="Grid"
+          name="2vars"
           component={GridScreen}
           options={{
             title: '2 Variables',
+          }} />
+        <Stack.Screen
+          name="3vars"
+          component={GridScreen}
+          options={{
+            title: '3 Variables',
+          }} />
+        <Stack.Screen
+          name="4vars"
+          component={GridScreen}
+          options={{
+            title: '4 Variables',
+          }} />
+        <Stack.Screen
+          name="5vars"
+          component={GridScreen}
+          options={{
+            title: '5 Variables',
+          }} />
+        <Stack.Screen
+          name="6vars"
+          component={GridScreen}
+          options={{
+            title: '6 Variables',
           }} />
         <Stack.Screen
           name="Table"

@@ -16,7 +16,7 @@ export default function HomeScreen({ navigation }) {
                 let values = [];
                 for (let i = 0; i < Math.pow(2, numberVariables); i++) values.push(0);
                 let params = { vars: numberVariables, initialValues: values };
-                navigation.push('Grid', params);
+                navigation.push(numberVariables + "vars", params);
             }
         } else {
             Snackbar.show({

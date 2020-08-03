@@ -79,7 +79,7 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
                                 <div style="position: absolute;top: ${dy + stepy + ((height / n) * i) + 10}px;left:${initAnd}px;width: ${3}px; height: ${h}px; background-color: ${color};z-index: 3;"></div>
                             `
                     }
-                    result += `<div style="position: absolute;top: ${dy + stepy + ((height / 2))}px;left:${initAnd}px;width: ${height * 1.4}px; height: ${3}px; background-color: ${color};z-index: 3;"></div>`
+                    result += `<div style="position: absolute;top: ${dy + stepy + ((height / 2))}px;left:${initAnd}px;width: ${height * 1}px; height: ${3}px; background-color: ${color};z-index: 3;"></div>`
 
                 }
             }
@@ -87,12 +87,15 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
 
             dx += step;
         }
-        //AND OPERATOR
+
         if (formatGroup.length > 1) {
+
             if (!isMaxiterm) {
+                //OR Operator
                 result += `<div style="position: absolute;top: ${dy + stepy}px;left:${initAnd}px;width: ${height}px; height: ${height}px; background-color: ${color};border-top-right-radius: 50%;border-bottom-right-radius: 50%;z-index:2;"></div>`
             }
             else {
+                //AND OPERATOR
                 result +=
                     `
                 <div style="position: absolute;top: ${(dy + stepy)}px;left:${initAnd - (height)}px;width: ${height * 1.05}px; height: ${height * 1.2}px; background-color: #f0f2f2;border-radius: 40%;z-index: -1;"></div>                 
@@ -110,8 +113,14 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
         mapsXY[index] = { x: initAnd + height + incresingValue, y: (dy + stepy) + (height / 2) };
         if (middles.indexOf(index) == 0) {
             decresingX = false;
+            if (middles.length == 1) {
+                incresingValue += step;
+            }
         }
-        if (middles.indexOf(index) != 1) {
+
+
+
+        if (middles.indexOf(index) == -1) {
             if (decresingX) {
                 incresingValue -= step;
             }
@@ -125,8 +134,8 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
         return result;
     }
 
-
-    let htmlContent = `<div style="position: relative;top: 0px;height: ${height * (n)};  overflow-x: scroll;">`;
+    console.log(middles);
+    let htmlContent = `<div style="position: relative;top: 0px;height: ${(height * lg) * 1.4};  overflow-x: scroll;">`;
     for (let i in groups) {
         let g = groups[i];
         htmlContent += setVariables(vars, g, parseInt(i));
@@ -211,7 +220,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     text: {
-        fontSize: 23,
+        fontSize: 20,
         textAlign: 'center'
     }
 })

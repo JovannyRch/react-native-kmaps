@@ -11,6 +11,7 @@ module.exports = class QuineMcCluskey {
      */
     constructor(variables, values, dontCares = [], isMaxterm = false) {
         values.sort();
+
         this.variables = variables;
         this.values = values;
         this.allValues = values.concat(dontCares);
@@ -18,6 +19,7 @@ module.exports = class QuineMcCluskey {
         this.dontCares = dontCares;
         this.isMaxterm = isMaxterm;
         this.func = null;
+        this.groups = [];
         //this.func = this.getFunction();
     }
 
@@ -313,8 +315,9 @@ module.exports = class QuineMcCluskey {
 
     //Format 2 result
     getFunctionFormat(isMaxterm = false) {
-        this.isMaxterm = isMaxterm;
-        let result = this.getFunction(true);
+
+        let result = this.getFunction(isMaxterm);
+
         if (isMaxterm) {
             let groups = result.split("AND");
 
@@ -412,9 +415,10 @@ module.exports = class QuineMcCluskey {
         let result = "";
 
         // Iterate through the prime implicants
+        this.groups = [];
         for (let i = 0; i < primeImplicants.length; i++) {
             let implicant = primeImplicants[i];
-
+            this.groups.push(implicant.getValues());
             // Add parentheses if necessary
             if ((implicant.getValue().match(/-/g) || []).length < this.variables.length - 1) {
                 result += "(";
