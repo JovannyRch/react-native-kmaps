@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native'
-import { Table, Rows } from 'react-native-table-component';
+import { View, StyleSheet, Text } from 'react-native';
 
 import TreeVariablesShow from './variables_show/TreeVariablesShow';
 import TwoVariablesShow from './variables_show/TwoVariablesShow';
@@ -27,13 +26,13 @@ export const GroupsComponent = ({ data, vars, values }) => {
             }
             {vars == 4 && <View style={styles.grid} >
 
-                <FourVariablesShow onPress={() => { }} values={values} vars={vars} />
+                <FourVariablesShow onPress={() => { }} values={values} vars={vars} groups={data} />
 
             </View>
             }
             {vars == 5 && <View style={styles.grid} >
 
-                <FiveVariablesShow onPress={() => { }} values={values} vars={vars} />
+                <FiveVariablesShow onPress={() => { }} values={values} vars={vars} groups={data} />
 
             </View>
             }

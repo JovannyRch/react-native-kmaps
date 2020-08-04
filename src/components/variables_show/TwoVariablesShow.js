@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import BoxGridShow from '../BoxGridShow'
-import BoxGrid from '../BoxGrid'
+
 import variablesStyles from './styles'
 
 export default function TwoVariablesShow({ values, groups }) {

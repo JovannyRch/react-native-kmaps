@@ -3,16 +3,26 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 
 const BoxGridShow = ({ groups, values, index }) => {
+    const getStyle = (value) => {
 
+        if (value == 1) {
+            return { ...styles.box, backgroundColor: '#5271FF' };
+        }
+        if (value == "X") {
+            return { ...styles.box, backgroundColor: '#9ee493' }
+        }
+        return styles.box;
+    }
     let colors = [
-        "#f5ffc6",
-        "#b4e1ff",
+        "#f97068",
+        "#d1d646",
         "#c1ff9b",
         "#ab87ff",
-        "#c84c09",
+        "#7fc809",
         "#7ea172",
+        "#f5ffc6",
         "#ebbe9b",
-        "#8a3033",
+        "#b14669",
         "#a5e6ba",
         "#5b2a86",
         "#e84855",
@@ -21,6 +31,7 @@ const BoxGridShow = ({ groups, values, index }) => {
         "#edf2ef",
     ];
     let groupsOfBox = [];
+    let val = 0;
     for (const i in groups) {
         const g = groups[i];
         let iG = g.indexOf(index);
@@ -29,10 +40,11 @@ const BoxGridShow = ({ groups, values, index }) => {
             groupsOfBox.push(colors[i]);
         }
     }
+    if (groupsOfBox.length >= 1) val = 1;
 
-    const cajita = (color) => {
+    const cajita = (color, index) => {
         return <>
-            <View style={{ height: 10, width: 10, backgroundColor: color }}>
+            <View style={{ ...styles.cajita, backgroundColor: color }} key={`${new Date()}${index}`}>
 
             </View>
         </>
@@ -40,17 +52,14 @@ const BoxGridShow = ({ groups, values, index }) => {
 
 
     return (
-        <View style={styles.box}>
-            <View style={styles.containerText} >
-                <Text >
-                    {index.toString()}
-                    {
-                        groupsOfBox.map((group) => cajita(group))
-                    }
-                </Text>
-                <Text >
-
-                </Text>
+        <View style={{ ...getStyle(val) }}>
+            {/*  <View>
+                <Text style={styles.valueText}>{val}</Text>
+            </View> */}
+            <View>
+                {
+                    groupsOfBox.map((group, index) => cajita(group, index))
+                }
             </View>
         </View >
 
@@ -59,6 +68,15 @@ const BoxGridShow = ({ groups, values, index }) => {
 
 
 const styles = StyleSheet.create({
+    cajita: {
+        height: 25,
+        width: 25,
+        borderRadius: 50,
+        borderWidth: 1,
+        borderColor: "black",
+        marginLeft: 2,
+        marginTop: 2,
+    },
     valueText: {
         fontSize: 40,
         textAlign: 'center',
@@ -69,7 +87,8 @@ const styles = StyleSheet.create({
         height: 100,
         borderWidth: 0.5,
         borderColor: 'black',
-        justifyContent: 'center',
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
         margin: 3,
         backgroundColor: '#C7D0D8',
         borderRadius: 10,

@@ -3,6 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Table, Row, Rows } from 'react-native-table-component';
 
 export default function TableScreen({ route, navigation }) {
+    console.log("Dibujando tabla");
     const { vars } = route.params;
     const nameVars = "ABCDEFGHIJKLMNOP";
     const [rows, setRows] = useState([]);

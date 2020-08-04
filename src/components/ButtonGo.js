@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import ButtonVar from './ButtonVar';
 
 const ButtonGo = ({ onPress1, onPress2 }) => {

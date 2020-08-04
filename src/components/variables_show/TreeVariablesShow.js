@@ -2,8 +2,9 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import BoxGrid from '../BoxGrid'
 import variablesStyles from './styles'
+import BoxGridShow from '../BoxGridShow'
 
-export default function TreeVariablesShow({ onPress, values, vars, groups = [], colors = [] }) {
+export default function TreeVariablesShow({ values, groups }) {
 
     const getStyle = () => {
         if (groups.length) {
@@ -24,18 +25,18 @@ export default function TreeVariablesShow({ onPress, values, vars, groups = [], 
             <View style={variablesStyles.row}>
                 <View style={variablesStyles.lefColumn} >
                     <Text style={variablesStyles.varText}>A'</Text></View>
-                <BoxGrid total={vars} values={values} onPress={onPress} allLight={true} index={0} />
-                <BoxGrid total={vars} values={values} onPress={onPress} allLight={true} index={1} />
-                <BoxGrid total={vars} values={values} onPress={onPress} allLight={true} index={3} />
-                <BoxGrid total={vars} values={values} onPress={onPress} allLight={true} index={2} />
+                <BoxGridShow values={values} groups={groups} index={0} />
+                <BoxGridShow values={values} groups={groups} index={1} />
+                <BoxGridShow values={values} groups={groups} index={3} />
+                <BoxGridShow values={values} groups={groups} index={2} />
 
             </View>
             <View style={variablesStyles.row}>
                 <View style={variablesStyles.lefColumn} ><Text style={variablesStyles.varText}>A</Text></View>
-                <BoxGrid total={vars} values={values} onPress={onPress} allLight={true} index={4} />
-                <BoxGrid total={vars} values={values} onPress={onPress} allLight={true} index={5} />
-                <BoxGrid total={vars} values={values} onPress={onPress} allLight={true} index={7} />
-                <BoxGrid total={vars} values={values} onPress={onPress} allLight={true} index={6} />
+                <BoxGridShow values={values} groups={groups} index={4} />
+                <BoxGridShow values={values} groups={groups} index={5} />
+                <BoxGridShow values={values} groups={groups} index={7} />
+                <BoxGridShow values={values} groups={groups} index={6} />
             </View>
         </>
     )

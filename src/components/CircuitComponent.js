@@ -3,7 +3,8 @@ import { View, StyleSheet, Text } from 'react-native';
 import HTML from 'react-native-render-html';
 import { ScrollView } from 'react-native-gesture-handler';
 
-export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) => {
+export const CircuitComponent = React.memo(({ variables, initGroups, isMaxiterm = false }) => {
+
     const addNegations = (vars) => {
         let result = [];
         for (let v of vars) {
@@ -206,14 +207,17 @@ export const CircuitComponent = ({ variables, initGroups, isMaxiterm = false }) 
 
 
     return (
-        <View className={styles.circuitContainer}>
-            <View >
-                <Text style={styles.text}>Circuito</Text>
+        <ScrollView>
+            <View className={styles.circuitContainer}>
+                <View >
+                    <Text style={styles.text}>Circuito</Text>
+                </View>
+                <HTML html={htmlContent} />
             </View>
-            <HTML html={htmlContent} />
-        </View>
+            <View style={{ height: 200, }}></View>
+        </ScrollView>
     )
-}
+})
 
 const styles = StyleSheet.create({
     circuitContainer: {

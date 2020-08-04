@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import { Table, Row, Rows } from 'react-native-table-component';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const TableComponent = ({ header, data }) => {
-    const [showTable, setShowTable] = useState(true)
 
     return (
-        <View >
-            {
-                showTable ?
-                    <View style={styles.containerTable}>
-                        <Text style={styles.textTitle}>Tabla de Verdad</Text>
-                        <View style={{ height: 10, }}></View>
-                        <Table borderStyle={styles.table}>
-                            <Row data={header} style={styles.head} textStyle={styles.headText} />
-                            <Rows data={data} textStyle={styles.text} />
-                        </Table>
-                    </View> :
-                    <View style={styles.mainContainer}>
-                        <TouchableOpacity style={styles.container} onPress={() => { setShowTable(true) }}>
-                            <Text style={styles.containerText}>Mostrar tabla de verdad</Text>
-                        </TouchableOpacity>
-                    </View>
+        <ScrollView>
+            <View style={styles.containerTable}>
+                <Text style={styles.textTitle}>Tabla de Verdad</Text>
+                <View style={{ height: 10, }}></View>
+                <Table borderStyle={styles.table}>
+                    <Row data={header} style={styles.head} textStyle={styles.headText} />
+                    <Rows data={data} textStyle={styles.text} />
+                </Table>
+            </View>
+            <View style={{ height: 200, }}>
 
-            }
-        </View>
+            </View>
+
+        </ScrollView>
+
     );
 }
 
@@ -80,4 +75,4 @@ const styles = StyleSheet.create({
 })
 
 
-export default TableComponent;
+export default React.memo(TableComponent);

@@ -2,10 +2,9 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 
-const BoxGrid = ({ values, index, onPress, total, allLight = false }) => {
+const BoxGrid = ({ values, index, onPress, total }) => {
 
     const getStyle = (value) => {
-        if (allLight) return styles.box;
         if (value == 1) {
             return { ...styles.box, backgroundColor: '#5271FF' };
         }
